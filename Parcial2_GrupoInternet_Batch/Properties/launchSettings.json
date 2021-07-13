@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Parcial2_GrupoInternet_Batch": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\srsan\\Desktop\\reporte.txt"
+    }
+  }
+}

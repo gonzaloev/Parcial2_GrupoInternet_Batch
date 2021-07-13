@@ -62,6 +62,63 @@ namespace Parcial2_GrupoInternet_Batch
             return resultado;
         }
 
+        static decimal CalcularTotalDeRecaudacion(List<Cliente> clientes)
+        {
+            decimal total = 0;
+            foreach(Cliente c in clientes)
+            {
+                total += c.PrecioPlan;
+            }
+            return total;
+        }
+        static decimal CalcularValorPromedioAbono(List<Cliente> clientes)
+        {
+            decimal total = 0;
+            foreach (Cliente c in clientes)
+            {
+                total += c.PrecioPlan;
+            }
+
+            decimal promedio = total / clientes.Count;
+
+            return promedio;
+        }
+        static decimal CalcularTotalBuenosAires(List<Cliente> clientes)
+        {
+            decimal total = 0;
+            foreach (Cliente c in clientes)
+            {
+                if(c.Localidad == "Buenos Aires")
+                {
+                    total += c.PrecioPlan;
+                }
+            }
+
+            return total;
+        }
+        static int CantidadDeClientesEnBsAs(List<Cliente> clientes)
+        {
+            int contador = 0;
+            foreach (Cliente c in clientes)
+            {
+                if(c.Localidad == "Buenos Aires")
+                {
+                    contador++;
+                }
+            }
+            return contador;
+        }
+        static string[] EscribirReporte(decimal totalRecaudado, decimal valorPromedio, decimal totalBuenosAires, int CantidadDeClientes)
+        {
+            string[] reporte = new string[4];
+
+            reporte[0] = $"El total de dinero recaudado por mes es de: {totalRecaudado:0.00}";
+            reporte[1] = $"El valor promedio del abono es de: {valorPromedio:0.00}";
+            reporte[2] = $"El total de dinero recaudado por mes en Buenos Aires es: {totalBuenosAires:0.00}";
+            reporte[3] = $"La cantidad de clientes en Buenos Aires es: {CantidadDeClientes}";
+
+            return reporte;
+        }
         static void Main(string[] args)
         {
             if (!File.Exists(args[0]))
@@ -77,10 +134,14 @@ namespace Parcial2_GrupoInternet_Batch
 
             decimal TotalBuenosAires = CalcularTotalBuenosAires(clientes);
 
-            string[] reporte = EscribirReporte(TotalRecaudado,ValorPromedio,TotalBuenosAires);
+            int CantidadDeClientes = CantidadDeClientesEnBsAs(clientes);
 
-            File.WriteAllLines("Reporte", reporte);
+            string[] reporte = EscribirReporte(TotalRecaudado,ValorPromedio,TotalBuenosAires,CantidadDeClientes);
+
+            File.WriteAllLines("Reporte.txt", reporte);
 
         }
+
+        
     }
 }
